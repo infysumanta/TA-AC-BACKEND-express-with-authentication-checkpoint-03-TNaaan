@@ -101,38 +101,45 @@ router.post("/expense", (req, res, next) => {
 });
 router.get("/statement", (req, res, next) => {
   let { type, from, to, month } = req.query;
-  let pipeline = [
-    {
-      $match: { createdBy: req.user._id },
+  let pipeline = [];
+
+  pipeline.push({
+    $project: {
+      source_category: 1,
+      date: 1,
+      amount: 1,
+      type: 1,
+      createdBy: 1,
+      day: { $dayOfMonth: "$date" },
+      month: { $month: "$date" },
+      year: { $year: "$date" },
     },
-  ];
+  });
+  pipeline.push({
+    $match: { createdBy: req.user._id },
+  });
+
   if (type) {
     pipeline.push({ $match: { type: type } });
   }
+
   if (from) {
-    pipeline.push({
-      // createdBy: {
-      //   $gte: new Date(from),
-      // },
-    });
+    pipeline.push({ $match: { date: { $gte: new Date(from) } } });
   }
+
   if (to) {
-    pipeline.push({
-      // createdBy: {
-      //   $gte: new Date(from),
-      // },
-    });
+    pipeline.push({ $match: { date: { $lte: new Date(to) } } });
   }
   if (month) {
+    console.log("Month: ", month);
     pipeline.push({
-      // createdBy: {
-      //   $gte: new Date(from),
-      // },
+      $match: { month: Number(month.split("-")[1]) },
     });
   }
 
   Transaction.aggregate(pipeline).exec((err, transactions) => {
-    res.render("statement", { transactions });
+    console.log("FROM", pipeline);
+    res.render("statement", { transactions, type, from, to, month });
   });
 });
 
