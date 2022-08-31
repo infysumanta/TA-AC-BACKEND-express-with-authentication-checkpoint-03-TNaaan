@@ -1,0 +1,86 @@
+<%- include("./partials/header.ejs") %>
+<main class="form-signin w-100 m-auto mt-5">
+  <div class="card w-100 m-auto">
+    <article class="card-body">
+      <h4 class="card-title mb-4 mt-1 text-center">Sign Up</h4>
+      <% if(error) { %>
+      <div class="m-4 alert alert-danger">
+        <strong>Error : </strong> <%= error %>
+      </div>
+      <% } else if(success) { %>
+      <div class="m-4 alert alert-success">
+        <strong>Success : </strong> <%= success %>
+      </div>
+      <% } %>
+
+      <form method="post" action="">
+        <div class="form-group p-2 m-2">
+          <input
+            name="name"
+            class="form-control"
+            placeholder="Enter your name"
+            type="text"
+            required
+          />
+        </div>
+        <div class="form-group p-2 m-2">
+          <input
+            name="email"
+            class="form-control"
+            placeholder="Email"
+            type="email"
+            required
+          />
+        </div>
+        <div class="form-group p-2 m-2">
+          <input
+            name="age"
+            class="form-control"
+            placeholder="Age"
+            type="number"
+            required
+          />
+        </div>
+        <div class="form-group p-2 m-2">
+          <select
+            name="country"
+            class="form-control"
+            placeholder="Country"
+            type="number"
+            required
+          >
+            <option value="India">India</option>
+          </select>
+        </div>
+        <!-- form-group// -->
+        <div class="form-group p-2 m-2">
+          <input
+            name="password"
+            class="form-control"
+            placeholder="******"
+            type="password"
+          />
+        </div>
+        <!-- form-group// -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group p-2 m-2">
+              <button class="w-100 btn btn-success" type="submit">
+                Register
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group p-2 m-2">
+              <a class="w-100 btn btn-primary" href="/users/login"> Sign in </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 text-right p-2 m-2">
+          <a class="small" href="#">Forgot password?</a>
+        </div>
+      </form>
+    </article>
+  </div>
+</main>
+<%- include("./partials/footer.ejs") %>
