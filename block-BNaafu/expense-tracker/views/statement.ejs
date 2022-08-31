@@ -1,0 +1,81 @@
+<%- include("./partials/header.ejs") %>
+<main>
+  <div class="container mt-4">
+    <form>
+      <div class="row">
+        <div class="col-3">
+          <div class="card">
+            <div class="card-header"><h4>Income/Expense</h4></div>
+            <div class="card-body">
+              <select name="type" id="" class="form-control">
+                <option value="">All</option>
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card">
+            <div class="card-header"><h4>Filter by Date</h4></div>
+            <div class="card-body row">
+              <div class="col">
+                <input type="date" name="from" id="from" class="form-control" />
+              </div>
+              <div class="col">
+                <input type="date" name="to" id="to" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="card">
+            <div class="card-header"><h4>Filter by Date</h4></div>
+            <div class="card-body">
+              <input
+                type="month"
+                value="2022-09"
+                name="month"
+                class="form-control"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col mt-2 text-center">
+        <button class="btn btn-primary btn-lg w-50" type="submit">
+          Search
+        </button>
+      </div>
+    </form>
+    <div class="card mt-4">
+      <div class="card-body">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Source / Category</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Type</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% transactions.forEach((transaction, index)=>{ %> <% let
+            trClass=""; if(transaction.type=="income"){ trClass =
+            "table-success"; }else{ trClass= "table-danger"; } %>
+            <tr class="<%= trClass%>">
+              <th scope="row"><%= index+1 %></th>
+              <td><%= transaction.source_category %></td>
+              <td>₹<%= transaction.amount %>.00</td>
+              <td><%= transaction.type %></td>
+              <td><%= //transaction.dateFormat() %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+<%- include("./partials/footer.ejs") %>
