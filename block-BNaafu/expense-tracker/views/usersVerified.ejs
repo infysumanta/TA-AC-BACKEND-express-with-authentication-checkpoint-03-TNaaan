@@ -1,0 +1,17 @@
+<%- include("./partials/header.ejs") %>
+<main class="container">
+  <div class="card mt-5 p-5">
+    <div class="card-body text-center">
+      <% if(error) { %>
+      <div class="m-4 alert alert-danger">
+        <strong>Error : </strong> <%= error %>
+      </div>
+      <% } else if(success) { %>
+      <div class="m-4 alert alert-success">
+        <strong>Success : </strong> <%= success %>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</main>
+<%- include("./partials/footer.ejs") %>

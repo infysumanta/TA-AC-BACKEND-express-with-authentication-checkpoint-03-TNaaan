@@ -36,7 +36,7 @@
   <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="#"><h2>Expense Tracker</h2></a>
+        <a class="navbar-brand" href="/"><h2>Expense Tracker</h2></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -50,12 +50,17 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <% if(user){ %>
            <li class="nav-item">
               <a class="nav-link" href="/users/">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/users/statement">Statement</a>
             </li>
+              <li class="nav-item">
+              <a class="nav-link" href="/users/change/password">Change Password</a>
+            </li>
+            <%  } %>
           </ul>
           <div class="d-flex" role="search">
             <div class="d-grid gap-2 d-md-block">
