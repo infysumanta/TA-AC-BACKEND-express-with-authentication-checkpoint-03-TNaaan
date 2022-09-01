@@ -16,13 +16,20 @@ router.get("/login", (req, res, next) => {
   let success = req.flash("success")[0];
   res.render("login", { error: error, success: success });
 });
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    successRedirect: "/users",
-    failureRedirect: "/users/login",
-  })
-);
+
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", function (err, user, info) {
+    if (err) return next(err);
+    if (!user) {
+      req.flash("error", info.message);
+      return res.redirect("/users/login");
+    }
+    req.logIn(user, function (err) {
+      if (err) return next(err);
+      return res.redirect("/users/");
+    });
+  })(req, res, next);
+});
 router.get("/register", (req, res, next) => {
   let error = req.flash("error")[0];
   let success = req.flash("success")[0];

@@ -12,7 +12,12 @@ passport.use(
       .then((user) => {
         if (!user) {
           return done(null, false, {
-            message: "that email is not registered",
+            message: "The email address is not registered with Us.",
+          });
+        }
+        if (!user.verified) {
+          return done(null, false, {
+            message: "The Account is not verified.",
           });
         }
         //match pass
@@ -22,7 +27,7 @@ passport.use(
           if (isMatch) {
             return done(null, user);
           } else {
-            return done(null, false, { message: "pass incorrect" });
+            return done(null, false, { message: "Password is incorrect!!" });
           }
         });
       })
