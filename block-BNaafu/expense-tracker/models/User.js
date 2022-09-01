@@ -11,6 +11,7 @@ let userSchema = new Schema(
     phone: { type: Number, default: 0000000000 },
     country: { type: String, default: "India" },
     password: { type: String, minlength: 5 },
+    verified: { type: Boolean, default: false },
     transactions: [{ type: mongoose.Types.ObjectId, ref: "Transaction" }],
   },
   { timestamps: true }

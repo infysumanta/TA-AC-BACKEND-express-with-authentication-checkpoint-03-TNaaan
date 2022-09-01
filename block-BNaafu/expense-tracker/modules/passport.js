@@ -39,7 +39,7 @@ passport.use(
       callbackURL: "/auth/github/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile._json);
+      // console.log(profile._json);
       var profileData = {
         name: profile._json.name,
         email: profile._json.email ? profile._json.email : profile._json.login,
@@ -67,21 +67,21 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       console.log(profile);
-      // var profileData = {
-      //   name: profile._json.name,
-      //   email: profile._json.email,
-      //   password: profile._json.name,
-      // };
-      // try {
-      //   const user = await User.findOne({ email: profile._json.email });
-      //   if (!user) {
-      //     const addedUser = await User.create(profileData);
-      //     return done(null, addedUser);
-      //   }
-      //   return done(null, user);
-      // } catch (error) {
-      //   done(error);
-      // }
+      var profileData = {
+        name: profile._json.name,
+        email: profile._json.email,
+        password: profile._json.name,
+      };
+      try {
+        const user = await User.findOne({ email: profile._json.email });
+        if (!user) {
+          const addedUser = await User.create(profileData);
+          return done(null, addedUser);
+        }
+        return done(null, user);
+      } catch (error) {
+        done(error);
+      }
     }
   )
 );
